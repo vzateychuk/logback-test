@@ -1,0 +1,46 @@
+plugins {
+	id 'java'
+}
+
+group = 'ru.vez'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+def logbackVersion = '1.5.8'
+def jacksonVersion = '2.17.2'
+def lombokVersion = '1.18.24'
+
+dependencies {
+	compileOnly "org.projectlombok:lombok:${lombokVersion}"
+	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+	implementation 'org.slf4j:slf4j-api:2.0.16'
+	implementation (
+			"ch.qos.logback:logback-core:${logbackVersion}",
+			"ch.qos.logback:logback-classic:${logbackVersion}",
+			"ch.qos.logback.access:common:2.0.2",
+			"net.logstash.logback:logstash-logback-encoder:8.0",
+	)
+
+	implementation (
+			"com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}",
+			"com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}",
+			"com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
+	)
+}
+
